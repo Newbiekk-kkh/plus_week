@@ -53,6 +53,7 @@ public class ReservationService {
     }
 
     // TODO: 3. N+1 문제
+    @Transactional(readOnly = true)
     public List<ReservationResponseDto> getReservations() {
         List<Reservation> reservations = reservationRepository.findAll();
 
