@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.demo.entity.Role.ADMIN;
+import static com.example.demo.entity.Role.USER;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -30,7 +33,14 @@ public class UserController {
     public void loginWithEmail(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request) {
         Authentication authentication = userService.loginUser(loginRequestDto);
         HttpSession session = request.getSession();
-        session.setAttribute(GlobalConstants.USER_AUTH, authentication);
+
+        if(authentication.getRole().equals(USER)) {
+            session.setAttribute(GlobalConstants.USER_AUTH, authentication);
+        }
+
+        if(authentication.getRole().equals(ADMIN)) {
+            session.setAttribute(GlobalConstants.ADMIN_AUTH, authentication);
+        }
     }
 
     @PostMapping("/logout")

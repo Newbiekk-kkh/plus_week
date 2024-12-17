@@ -24,14 +24,27 @@ public class RoleFilter implements CommonAuthFilter {
             throws IOException, ServletException {
         HttpSession session = findHttpSession(servletRequest);
 
-        Authentication authentication = (Authentication) session.getAttribute(
-                GlobalConstants.USER_AUTH);
+        if (session.getAttribute(GlobalConstants.USER_AUTH) != null) {
+            Authentication authentication = (Authentication) session.getAttribute(GlobalConstants.USER_AUTH);
 
-        Role clientRole = authentication.getRole();
-        if (clientRole != this.role) {
-            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, role.getName() + " 권한이 필요합니다.");
+            Role clientRole = authentication.getRole();
+
+            if (clientRole != this.role) {
+                throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, role.getName() + " 권한이 필요합니다.");
+            }
+        }
+
+        if (session.getAttribute(GlobalConstants.ADMIN_AUTH) != null) {
+            Authentication authentication = (Authentication) session.getAttribute(GlobalConstants.ADMIN_AUTH);
+
+            Role clientRole = authentication.getRole();
+
+            if (clientRole != this.role) {
+                throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, role.getName() + " 권한이 필요합니다.");
+            }
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
+
 }
