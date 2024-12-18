@@ -24,6 +24,10 @@ public class AuthInterceptor implements HandlerInterceptor {
             throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
         }
 
+        if (session.getAttribute(GlobalConstants.ADMIN_AUTH) == null) {
+            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+
         return true;
     }
 }
