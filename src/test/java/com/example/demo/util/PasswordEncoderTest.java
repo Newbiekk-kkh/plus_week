@@ -7,8 +7,19 @@ import org.mockito.Mock;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordEncoderTest {
-//    @Mock
-//    private PasswordEncoder passwordEncoder;
+    @Test
+    @DisplayName("RawPassword가 Encode 했을때 반환된 EncodedPassword와 다른지 확인")
+    void rawPasswordEqualsEncodedPassword() {
+        // given
+        String rawPassword = "abcd";
+
+        // when
+        String encodedPassword = PasswordEncoder.encode(rawPassword);
+
+        // then
+        System.out.println(encodedPassword);
+        assertFalse(rawPassword.equals(encodedPassword));
+    }
 
     @Test
     @DisplayName("RawPassword 와 EncodedPassword가 match 되는지 확인")
