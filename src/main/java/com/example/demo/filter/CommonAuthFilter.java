@@ -13,7 +13,7 @@ public interface CommonAuthFilter extends Filter {
 
     default HttpSession findHttpSession(ServletRequest request) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        return Optional.of(httpServletRequest.getSession(false))
-                .orElseThrow(() -> new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인 필요"));
+        return Optional.ofNullable(httpServletRequest.getSession(false))
+                .orElseThrow(() -> new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인을 해주세요."));
     }
 }
