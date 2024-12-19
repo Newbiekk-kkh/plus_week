@@ -18,10 +18,6 @@ public class AdminService {
     // TODO: 4. find or save 예제 개선
     @Transactional
     public void reportUsers(List<Long> userIds) {
-        List<User> reportUsersList = userRepository.findByIdIn(userIds);
-
-        for (User user : reportUsersList) {
-            user.updateStatusToBlocked();
-        }
+        userRepository.updateStatusToBlockedByIdIn(userIds);
     }
 }
