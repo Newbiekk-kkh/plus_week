@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: prod
+    include: prod
+  application:
+    name: demo
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: true
+        enable_lazy_load_no_trans: true
