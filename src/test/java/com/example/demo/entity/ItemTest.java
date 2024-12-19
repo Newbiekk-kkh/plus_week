@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.domain.item.entity.Item;
+import com.example.demo.domain.user.entity.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -19,7 +21,7 @@ class ItemTest {
         Item item = new Item("야구방망이", "단단함", manager, owner);
 
         // when, then
-        assertTrue(item.getStatus() == null);
+        assertThrows(IllegalArgumentException.class, () -> item.setStatus(null));
     }
 
 }
